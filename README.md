@@ -7,8 +7,9 @@ To predict I did something like
 ```
 wsclean -predict -size 1001 1001 -weight natural -scale 0.604asec -name SKAMid_B1_100h_v3_scaled_cropped_fun DSA_2000_ant_60x15s_mma_SKAMid.ms
 ```
+where the model image has to have the name SKAMid_B1_100h_v3_scaled_cropped_fun.fits. 
 
-and to image
+To image
 ```
 wsclean -no-update-model-required -niter 0 -size 1200 1200 -scale 0.5asec -weight briggs 0 -datacolumn MODEL_DATA -make-psf -name SKAMid_60x15s_bright DSA_2000_ant_60x15s_mma_SKAMid.ms
 ```
