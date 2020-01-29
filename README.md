@@ -1,6 +1,20 @@
 # DSA2000-Whitepaper-Simulation
-The simulation consists of two steps, setting up the measurement set (basically computing the uvws), and then inverting a model. For the first step I used casa for that (see `simobs.py`). Also see http://library.nrao.edu/public/memos/ngvla/NGVLA_55.pdf. The cfg file used is the uvw coordinates of the array on the tangent plane set in `simobs.py` (this turned out to be the easiest way for me to get things working without a deep understanding of how UTM works in CASA).
+The simulation consists of two steps, setting up the measurement set (basically computing the uvws), and then inverting a model.
 
+Requirements:
+* CASA6 Python libraries (https://casa.nrao.edu/casadocs/casa-5.6.0/introduction/casa6-installation-and-usage)
+* wsclean (https://sourceforge.net/projects/wsclean/)
+* Sky model as FITS image (https://astronomers.skatelescope.org/ska-science-data\
+-challenge-1/)
+
+## Simulating visibilities
+For the first step I used casa for that (see `simobs.py`) and download an image from the SKA data challenge (https://astronomers.skatelescope.org/ska-science-data-challenge-1/). Also see http://library.nrao.edu/public/memos/ngvla/NGVLA_55.pdf. The cfg file used is the uvw coordinates of the array on the tangent plane set in `simobs.py` (this turned out to be the easiest way for me to get things working without a deep understanding of how UTM works in CASA).
+
+```
+./simobs.py <image.fits>
+```
+
+## Inverting model
 For the second step I used wsclean which handles wide-field effects and is numerically more stable. I did have to make sure that the model fits file have unit Jy/px (e.g. https://casaguides.nrao.edu/index.php/Simulation_Recipes#Flux_Density_Scaling), and then changed the fits header so that the sources are above horizon.
 
 To predict I did something like
