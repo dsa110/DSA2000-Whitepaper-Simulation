@@ -1,11 +1,10 @@
 # DSA2000-Whitepaper-Simulation
 The simulation consists of two steps, setting up the measurement set (basically computing the uvws), and then inverting a model.
 
-Requirements:
+## Requirements
 * CASA6 Python libraries (https://casa.nrao.edu/casadocs/casa-5.6.0/introduction/casa6-installation-and-usage)
-* wsclean (https://sourceforge.net/projects/wsclean/)
-* Sky model as FITS image (https://astronomers.skatelescope.org/ska-science-data\
--challenge-1/)
+* Sky model as FITS image (https://astronomers.skatelescope.org/ska-science-data-challenge-1/)
+* wsclean (for inversion; https://sourceforge.net/projects/wsclean/)
 
 ## Simulating visibilities
 For the first step I used casa for that (see `simobs.py`) and download an image from the SKA data challenge (https://astronomers.skatelescope.org/ska-science-data-challenge-1/). Also see http://library.nrao.edu/public/memos/ngvla/NGVLA_55.pdf. The cfg file used is the uvw coordinates of the array on the tangent plane set in `simobs.py` (this turned out to be the easiest way for me to get things working without a deep understanding of how UTM works in CASA).
