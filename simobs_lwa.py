@@ -1,28 +1,13 @@
 #!/usr/bin/env python
-import casatasks
-import casatools
 import sys
 import os.path
 
 # set up
-msname='sim_output.ms'
-conf_file='LWA_coordinates.cfg'
-if len(sys.argv) > 1:
-    fitsimage = sys.argv[1]
-else:
-    fitsimage = 'SKAMid_B2_8h_v3.fits'
-
-assert os.path.exists(fitsimage)
-assert 'fits' in fitsimage
-image = fitsimage.replace('.fits', '.image')
-if not os.path.exists(image):
-    print('creating ms image to be used as sky model')
-    im = casatools.image()
-    im.fromfits(infile=fitsimage, outfile=image)
+msname='sim_output_352_oneremoved.ms'
+conf_file='LWA352_oneremoved.cfg'
 
 # get antenna positions
 tabname='antenna_positions_'+conf_file.split('.cfg')[0]+'.tab'
-tb = casatools.table()
 tb.fromascii(tabname, conf_file, firstline=3, sep=' ', columnnames=['X', 'Y', 'Z', 'DIAM', 'NAME'], datatypes=['D', 'D', 'D', 'D', 'A'])
 xx=tb.getcol('X')
 yy=tb.getcol('Y')
@@ -32,8 +17,7 @@ anames=tb.getcol('NAME')
 tb.close()
 
 # simulate setup
-sm = casatools.simulator()
-me = casatools.measures()
+
 sm.open(msname)
 sm.setconfig(telescopename='ovro_mma', x=xx, y=yy, z=zz, dishdiameter=diam, mount='alt-az', antname=list(anames), padname=list(anames), coordsystem='global')
 sm.setspwindow(spwname='LWABand', freq='35MHz', deltafreq='21kHz', freqresolution='21kHz', nchannels=2398, stokes='XX XY YX YY')
@@ -55,5 +39,5 @@ sm.observe('source', 'LWABand', starttime=startha, stoptime=endha)
 
 # simulate sky model
 #sm.predict(imagename=image)
-sm.setnoise(mode='simplenoise', simplenoise='1Jy')
+sm.setnoise(mode='simplenoise', simplenoise='6240Jy')
 sm.corrupt()
