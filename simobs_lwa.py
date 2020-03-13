@@ -6,7 +6,7 @@ import os.path
 
 # set up
 msname='sim_output.ms'
-conf_file='LWA_coordinates.cfg'
+conf_file='LWA352_coordinates_mod.cfg'
 if len(sys.argv) > 1:
     fitsimage = sys.argv[1]
 else:
